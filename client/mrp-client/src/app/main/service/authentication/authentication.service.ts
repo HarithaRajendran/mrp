@@ -19,16 +19,16 @@ export class AuthenticationService {
       state: 'Tamil Nadu',
       city: 'Chennai',
       pincode: 600118,
-      dateOfBirth: '18/03/1997',
+      dateOfBirth: '18-03-1997',
       age: 24,
       contactNumber: '9094828327',
-      panNumber: 'ABC12345LT',
+      panNumber: 'ATAPH1234L',
       email: 'haritha@gmail.com',
       password: 'Abc@12345',
-      dependentDetail: [
-        {dependentId: 'D-112',
+      dependentDetails: [
+        {memberId: 'D-112',
         name: 'Rajendran',
-        dateOfBirth: '16/08/1964'}
+        dateOfBirth: '16-08-1964'}
       ]
     }
   ]
@@ -55,6 +55,13 @@ export class AuthenticationService {
         return true;
       }
       return false;
+  }
+
+  updateMember(memberDetail: MemberDetailI): boolean{
+    let index = this.userDetails.findIndex(detail => detail.memberId === memberDetail.memberId);
+    this.userDetails[index] = memberDetail;
+    console.log(this.userDetails);
+    return true;
   }
   
   signIn(value: LoginI): boolean{

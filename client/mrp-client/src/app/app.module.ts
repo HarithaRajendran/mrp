@@ -13,8 +13,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './main/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DependentDetailComponent } from './main/update-member/dependent-detail/dependent-detail.component';
-
 
 @NgModule({
   declarations: [
@@ -25,8 +23,7 @@ import { DependentDetailComponent } from './main/update-member/dependent-detail/
     ClaimsFormComponent,
     UpdateMemberComponent,
     PageNotFoundComponent,
-    HeaderComponent,
-    DependentDetailComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

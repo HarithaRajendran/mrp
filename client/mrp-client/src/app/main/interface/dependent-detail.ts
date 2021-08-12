@@ -1,5 +1,5 @@
 export interface DependentDetailI {
-    dependentId?: string;
+    memberId?: string;
     name: string;
     dateOfBirth: string;
     isClaimSubmitted?: boolean;

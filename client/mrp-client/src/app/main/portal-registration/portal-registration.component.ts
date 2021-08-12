@@ -38,7 +38,7 @@ export class PortalRegistrationComponent implements OnInit {
     this.countries = this.countryAndStateService.countries;
 
     this.signUpForm = new FormGroup({
-      name: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]),
       address: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
       state: new FormControl('', [Validators.required]),
@@ -46,11 +46,11 @@ export class PortalRegistrationComponent implements OnInit {
       pincode: new FormControl('', [Validators.required]),
       dateOfBirth: new FormControl('', [Validators.required]),
       age: new FormControl('18', [Validators.required]),
-      contactNumber: new FormControl('', [Validators.required]),
-      panNumber: new FormControl('', [Validators.required]),
+      contactNumber: new FormControl('', [Validators.required, Validators.pattern(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/)]),
+      panNumber: new FormControl('', [Validators.required, Validators.pattern(/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/)]),
       email: new FormControl('', [Validators.required, Validators.email]
       ),
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/)]),
       dependentDetails: new FormArray([])
     });
   }
@@ -68,12 +68,6 @@ export class PortalRegistrationComponent implements OnInit {
   get email() { return this.signUpForm.controls['email']};
   get password() { return this.signUpForm.controls['password']};
 
-  ngbDateStructModel = { day: new Date().getUTCDay(), month: new Date().getUTCMonth(), year: new Date().getUTCFullYear()};
-
-  model: NgbDateStruct = this.ngbDateStructModel;
-  date: { year: number, month: number } = {year: new Date().getFullYear(), month: new Date().getMonth()-1};
-  today: any = new Date(); 
-
   selectCountry() {
     this.states = this.countries.filter((country) => this.country.value === country.country_name)[0].states;
   }
@@ -84,11 +78,14 @@ export class PortalRegistrationComponent implements OnInit {
       if(result){
         this.signUpForm.reset();
         this.successMessage = 'Member Registered Successfully!';
+        this.errorMessage = '';
       } else {
         this.errorMessage = 'Member Already Exist.';
+        this.successMessage = '';
       }
     } else{
       this.errorMessage = 'Invalid Form Submission';
+      this.successMessage = '';
     }
   }
 

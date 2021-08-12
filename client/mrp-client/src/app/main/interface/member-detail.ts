@@ -15,5 +15,5 @@ export interface MemberDetailI {
     email: string;
     password: string;
     isClaimSubmitted?: boolean;
-    dependentDetail?: DependentDetailI[];
+    dependentDetails?: DependentDetailI[];
 }
