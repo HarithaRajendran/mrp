@@ -13,14 +13,20 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<?> resourceNotFoundException(ResourceNotFoundException exception, WebRequest request ){
-		CustomErrorEntity errorDetails = new CustomErrorEntity(new Date(), exception.getMessage(), 404, "NOT_FOUND", request.getDescription(false));
+		CustomErrorEntity errorDetails = new CustomErrorEntity(new Date(), exception.getMessage(), 404, "NOT_FOUND", request.getDescription(true));
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(DataMissingException.class)
 	public ResponseEntity<?> dataMissingException(DataMissingException exception, WebRequest request){
-		CustomErrorEntity errorDetails = new CustomErrorEntity(new Date(), exception.getMessage(), 400, "BAD_REQUEST", request.getDescription(false));
+		CustomErrorEntity errorDetails = new CustomErrorEntity(new Date(), exception.getMessage(), 400, "BAD_REQUEST", request.getDescription(true));
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ClaimAlreadyExistException.class)
+	public ResponseEntity<?> claimAlreadyExistException(ClaimAlreadyExistException exception, WebRequest request){
+		CustomErrorEntity errorDetails = new CustomErrorEntity(new Date(), exception.getMessage(), 208, "ALREADY_EXIST", request.getDescription(true));
+		return new ResponseEntity<>(errorDetails, HttpStatus.ALREADY_REPORTED);
 	}
 	
 //	@ExceptionHandler(Exception.class)

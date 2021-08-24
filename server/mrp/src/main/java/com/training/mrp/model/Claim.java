@@ -23,7 +23,7 @@ public class Claim {
 	private Date dateOfDischarge;
 	private String billAmmount;
 	
-	private Member member;
-	private Dependent dependent;
+	private Integer memberId;
+	private Integer dependentId;
 	
 }

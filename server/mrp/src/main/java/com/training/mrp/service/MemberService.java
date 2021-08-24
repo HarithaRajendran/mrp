@@ -73,7 +73,7 @@ public class MemberService implements MemberServiceI{
 		return null;
 	}
 
-	public Integer getLargestId(String repoName) {
+	private Integer getLargestId(String repoName) {
 		List<Integer> ids = new ArrayList<Integer>();
 
 		if(repoName.equals("member")) {
