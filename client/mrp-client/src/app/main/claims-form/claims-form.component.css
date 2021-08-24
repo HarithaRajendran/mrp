@@ -7,3 +7,8 @@
 a{
     cursor: pointer;
 }
+
+.error-message {
+    color: red;
+    margin-left: 14px;
+}

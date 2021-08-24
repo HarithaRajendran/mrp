@@ -23,7 +23,7 @@ export class UpdateMemberComponent implements OnInit {
   user: any;
 
   allDependentDetailId: any[] = [];
-  greaterId: number = 0;
+  greaterId: number = 1;
 
   now = new Date();
   year = this.now.getFullYear();
@@ -54,7 +54,9 @@ export class UpdateMemberComponent implements OnInit {
       });
     });
 
-    this.greaterId = this.allDependentDetailId.reduce((a, b) => Math.max(a, b));
+    // if(this.allDependentDetailId.length){
+      this.greaterId = this.allDependentDetailId.reduce((a, b) => Math.max(a, b));
+    // }
 
     this.countries = this.countryAndStateService.countries;
     this.states = this.countries.filter((country) => currentUserDetail.country === country.country_name)[0].states;
@@ -77,7 +79,6 @@ export class UpdateMemberComponent implements OnInit {
     });
 
     if(this.user.length > 0){
-      debugger;
       this.user.forEach((detail: any, i: number) =>{
         this.addItemData(detail);
       });
@@ -113,8 +114,7 @@ export class UpdateMemberComponent implements OnInit {
   isNew: boolean = true;
 
   addItem() {
-    this.isFilled = true;
-    this.isNew = true;
+    debugger;
     this.dependentDetails = this.updateForm.get('dependentDetails') as FormArray;
     this.dependentDetails.push(this.fb.group({
       memberId: [`D-${+this.greaterId+1}`],
@@ -135,24 +135,10 @@ export class UpdateMemberComponent implements OnInit {
     }));
   }
 
-  // addDependent(detail: any, i: number): void {
-  //   let formArrayItem = this.updateForm.get('dependentDetails') as FormArray;;
-  //   formArrayItem.push( 
-  //     new FormGroup({ 
-  //       memberId: new FormControl(detail? detail.memberId : `D-${this.greaterId++}`),
-  //       name: new FormControl(detail? detail.name : ''),
-  //       dateOfBirth: new FormControl(detail? detail.dateOfBirth : '')
-  //     }));
-  // }
-
   remove(i: number){
+    this.greaterId = this.greaterId-1;
     this.dependentDetails.removeAt(i);
   }
-
-
-
-
-
 
   onSubmitClick(){
     if(this.updateForm.valid){
