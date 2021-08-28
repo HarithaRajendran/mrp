@@ -1,0 +1,30 @@
+server:
+   port: 8084
+   
+spring:
+   application:
+      name: API-GATEWAY
+   cloud:
+      gateway:
+         routes:
+            - id: USER-SERVICE
+              uri: lb://USER-SERVICE
+              predicates:
+                 - Path=/api/user/**
+            - id: CLAIM-SERVICE
+              uri: lb://CLAIM-SERVICE
+              predicates:
+                 - Path=/api/claim/**
+                 
+
+
+eureka:
+   client:
+      registry-with-eureka: true
+      fetch-registry: true
+      service-url:
+         defaultZone: http://localhost:8761/eureka/
+   instance:
+      hostname: localhost
+
+      

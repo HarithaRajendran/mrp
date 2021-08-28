@@ -20,14 +20,14 @@ import com.cognizant.claim.service.ClaimService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/claim")
 @Slf4j
 public class ClaimController {
 	
 	@Autowired
 	private ClaimService claimService;
 	
-	@PostMapping("submit/claim")
+	@PostMapping("submit")
 	public ResponseEntity<?> submitClaim(@RequestBody Claim claimData){
 		
 		Claim claim = claimService.save(claimData);

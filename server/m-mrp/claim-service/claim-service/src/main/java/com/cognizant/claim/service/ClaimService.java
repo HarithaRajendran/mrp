@@ -30,7 +30,7 @@ public class ClaimService {
 	}
 	
 	public MemberDetail checkMemberClaim(String id) {		
-		MemberDetail memberDetail = restTemplate.getForObject("http://localhost:8082/api/user/check/claim/"+id, MemberDetail.class);
+		MemberDetail memberDetail = restTemplate.getForObject("http://USER-SERVICE/api/user/check/claim/"+id, MemberDetail.class);
 		return memberDetail;
 	}
 
