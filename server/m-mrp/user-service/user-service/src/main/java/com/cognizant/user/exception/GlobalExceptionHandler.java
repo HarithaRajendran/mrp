@@ -29,6 +29,13 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(errorDetails, HttpStatus.ALREADY_REPORTED);
 	}
 	
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<?> userNotFoundException(ResourceNotFoundException exception, WebRequest request ){
+		CustomErrorEntity errorDetails = new CustomErrorEntity(new Date(), exception.getMessage(), 200, "OK", request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.OK);
+	}
+	
+	
 //	@ExceptionHandler(Exception.class)
 //	public ResponseEntity<?> otherException(Exception exception, WebRequest request){
 //		CustomErrorEntity errorDetails = 
