@@ -1,0 +1,43 @@
+package com.cognizant.claim.controller;
+
+import java.util.Objects;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cognizant.claim.entity.Claim;
+import com.cognizant.claim.service.ClaimService;
+
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@RequestMapping("/api")
+@Slf4j
+public class ClaimController {
+	
+	@Autowired
+	private ClaimService claimService;
+	
+	@PostMapping("submit/claim")
+	public ResponseEntity<?> submitClaim(@RequestBody Claim claimData){
+		
+//		if(claimService.validationErrorListSize(claimData) > 0) {
+//			return new ResponseEntity<>("Fill all the required details", HttpStatus.BAD_REQUEST);
+//		}
+		
+		Claim claim = claimService.save(claimData);
+		
+		if(Objects.isNull(claim)) {
+			return new ResponseEntity<>("Claim not saved.", HttpStatus.INTERNAL_SERVER_ERROR);
+		} else {
+			log.info("Claim created successfully...");
+			return new ResponseEntity<>("Claim successfully created.", HttpStatus.OK);
+		}
+	}
+	
+}

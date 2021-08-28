@@ -21,9 +21,9 @@ public class ClaimController {
 	@PostMapping("/api/submitClaim")
 	public ResponseEntity<?> createClaim(@RequestBody Claim claim) {
 		
-		if (claim.getName().isEmpty() || claim.getBillAmmount().isEmpty()) {
-			throw new DataMissingException("Mandatory data is missing");
-		}
+//		if (claim.getName().isEmpty() || claim.getBillAmmount().isEmpty()) {
+//			throw new DataMissingException("Mandatory data is missing");
+//		}
 		
 		boolean claimStatus = claimService.save(claim);
 		

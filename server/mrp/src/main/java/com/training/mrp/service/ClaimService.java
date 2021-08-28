@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.training.mrp.exception.ClaimAlreadyExistException;
+import com.training.mrp.exception.ResourceNotFoundException;
 import com.training.mrp.model.Claim;
 import com.training.mrp.model.Dependent;
 import com.training.mrp.model.Member;
@@ -41,34 +42,46 @@ public class ClaimService implements ClaimServiceI{
 		return true;
 	}
 	
+	@SuppressWarnings("null")
 	@Override
 	public ResponseEntity<?> getMemberById(Integer id) {
-		List<Integer> ids = new ArrayList<>();
+//		List<Integer> ids = new ArrayList<>();
+		List<Integer> claimIds = new ArrayList<>();
 		
-		List<Member> members = memberRepo.findAll();
+//		List<Member> members = memberRepo.findAll();
 		
-		for(Member member: members) {
-			ids.add(member.getId());
-			for(Dependent dependent: member.getDependents()) {
-				ids.add(dependent.getId());
-			}
+		List<Claim> claims = claimRepo.findAll();
+		
+//		for(Member member: members) {
+//			ids.add(member.getId());
+//			for(Dependent dependent: member.getDependents()) {
+//				ids.add(dependent.getId());
+//			}
+//		}
+		
+		for(Claim claim: claims) {
+			claimIds.add(claim.getClaimMemberId());
 		}
 		
 		List<Integer> filteredId = 
-				ids.stream().filter(identity -> identity.equals(id)).collect(Collectors.toList());
+				claimIds.stream().filter(identity -> identity.equals(id)).collect(Collectors.toList());
 		
 		if(filteredId.size() > 0) {
 			throw new ClaimAlreadyExistException("Claim with the id "+id+" already exist");
 		}
 		
 		Optional<Member> member = memberRepo.findById(id);
+		Optional<Dependent> dependent = null;
 				
 		if(member.isEmpty()) {
-			Dependent dependent = dependentRepo.findById(id).get();
-			return ResponseEntity.ok(dependent) ;
+			dependent = dependentRepo.findById(id);
+			if(dependent.isEmpty()) {
+				throw new ResourceNotFoundException("Id not available");
+			}
+			return ResponseEntity.ok(dependent.get());
 		} else {
 			return ResponseEntity.ok(member);
-		}	
+		}
 	}
 	
 	private Integer getLargestId() {

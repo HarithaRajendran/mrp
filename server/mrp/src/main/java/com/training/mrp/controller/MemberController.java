@@ -31,11 +31,12 @@ public class MemberController {
 	@PostMapping("/register")
 	public ResponseEntity<?> CreateMember(@RequestBody Member member) {
 
-		if (member.getEmail().isEmpty() || member.getPassword().isEmpty() || member.getDateOfBirth().isEmpty()
-				|| member.getName().isEmpty() || member.getContactNumber().toString().isEmpty()) {
-			throw new DataMissingException("Mandatory data is missing");
-		}
-
+//		if (member.getEmail().equals(null) || 
+//				member.getPassword().equals(null) || member.getDateOfBirth().equals(null)
+//				|| member.getName().equals(null)) {
+//			throw new DataMissingException("Mandatory data is missing");
+//		}
+		
 		Optional<Member> memberDetail = memberService.save(member);
 		return ResponseEntity.ok(memberDetail);
 	}
@@ -59,10 +60,10 @@ public class MemberController {
 			throw new ResourceNotFoundException("Member not found with the id : " + id);
 		}
 		
-		if (member.getEmail().isEmpty() || member.getPassword().isEmpty() || member.getDateOfBirth().isEmpty()
-				|| member.getName().isEmpty() || member.getContactNumber().toString().isEmpty()) {
-			throw new DataMissingException("Mandatory data is missing");
-		}
+//		if (member.getEmail().isEmpty() || member.getPassword().isEmpty() || member.getDateOfBirth().isEmpty()
+//				|| member.getName().isEmpty() || member.getContactNumber().toString().isEmpty()) {
+//			throw new DataMissingException("Mandatory data is missing");
+//		}
 
 		Optional<Member> updatedMember = memberService.save(member);
 		return ResponseEntity.ok(updatedMember.get());

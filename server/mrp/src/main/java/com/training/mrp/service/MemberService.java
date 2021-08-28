@@ -35,7 +35,7 @@ public class MemberService implements MemberServiceI{
 
 	@Override
 	public Optional<Member> save(Member member) {
-		
+				
 		if(member.getDependents().size() != 0) {
 			for(Dependent dependent: member.getDependents()) {
 				if(dependent.getId() == null) {
@@ -45,7 +45,6 @@ public class MemberService implements MemberServiceI{
 			
 			dependentRepo.saveAll(member.getDependents());
 		}
-		
 		
 		if(member.getId() == null) {
 			member.setId(getLargestId("member")+1);
