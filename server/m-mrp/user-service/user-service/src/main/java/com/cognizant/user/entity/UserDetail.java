@@ -8,8 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDetail {
-	
+
 	private User user;
-	
+
 	private List<Dependent> dependents;
 }

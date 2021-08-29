@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.cognizant.user.entity.Dependent;
 
 @Repository
-public interface DependentRepository extends MongoRepository<Dependent, String>{
+public interface DependentRepository extends MongoRepository<Dependent, String> {
 
 	public List<Dependent> findByUserId(String userId);
 

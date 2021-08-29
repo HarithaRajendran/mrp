@@ -12,7 +12,7 @@ public class ClaimServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ClaimServiceApplication.class, args);
 	}
-	
+
 	@Bean
 	@LoadBalanced
 	public RestTemplate restTemplate() {

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cognizant.user.entity.ClaimCheckDetail;
 import com.cognizant.user.entity.Dependent;
 import com.cognizant.user.entity.Login;
 import com.cognizant.user.entity.MemberDetail;
@@ -97,19 +96,22 @@ public class UserController {
 		MemberDetail memberDetail = new MemberDetail();
 
 		if (id.startsWith("R")) {
-			User user = userService.getUserById(id).get();
-
-			memberDetail.setMemberId(user.getId());
-			memberDetail.setName(user.getName());
-			memberDetail.setDateOfBirth(user.getDateOfBirth());
+			Optional<User> user = userService.getUserById(id);
+			if (user.isPresent()) {
+				memberDetail.setMemberId(user.get().getId());
+				memberDetail.setName(user.get().getName());
+				memberDetail.setDateOfBirth(user.get().getDateOfBirth());
+			}
 
 			return memberDetail;
 		} else {
-			Dependent dependent = userService.getDependentById(id).get();
+			Optional<Dependent> dependent = userService.getDependentById(id);
 
-			memberDetail.setMemberId(dependent.getId());
-			memberDetail.setName(dependent.getName());
-			memberDetail.setDateOfBirth(dependent.getDateOfBirth());
+			if (dependent.isPresent()) {
+				memberDetail.setMemberId(dependent.get().getId());
+				memberDetail.setName(dependent.get().getName());
+				memberDetail.setDateOfBirth(dependent.get().getDateOfBirth());
+			}
 
 			return memberDetail;
 		}

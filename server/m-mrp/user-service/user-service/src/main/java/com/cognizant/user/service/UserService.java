@@ -19,76 +19,74 @@ import com.cognizant.user.repository.UserRepository;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired 
+
+	@Autowired
 	private DependentRepository dependentRepository;
-	
+
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
 	private DependentDao dependentDao;
 
 	public Optional<User> getUserById(String id) {
 		return userRepository.findById(id);
 	}
-	
+
 	public Optional<Dependent> getDependentById(String id) {
 		return dependentRepository.findById(id);
 	}
 
 	public UserDetail save(UserDetail userDetail) {
-				
+
 		List<Dependent> dependents = new ArrayList<>();
-		
+
 		User user = userRepository.save(userDetail.getUser());
-		
-		for(Dependent dependent: userDetail.getDependents()) {
-			if(dependent.getId() == null) {
-				dependent.setId("D-"+Math.round(Math.random()*1000));
+
+		for (Dependent dependent : userDetail.getDependents()) {
+			if (dependent.getId() == null) {
+				dependent.setId("D-" + Math.round(Math.random() * 1000));
 				dependent.setUserId(user.getId());
 			}
 			dependents.add(dependentRepository.save(dependent));
 		}
-		
+
 		userDetail.setUser(user);
 		userDetail.setDependents(dependents);
-				
+
 		return userDetail;
 	}
-	
+
 	public UserDetail verifyUserDetail(String username, String password) {
 		User user = userDao.validateUserDetail(username, password);
-		
-		if(Objects.isNull(user)) {
+
+		if (Objects.isNull(user)) {
 			throw new UserNotFoundException("Invalid Credentials");
 		}
-		
+
 		UserDetail userDetail = new UserDetail();
-		List<Dependent> dependents = new ArrayList<>();
-		
-		dependents = dependentRepository.findByUserId(user.getId());
-		
+		List<Dependent> dependents = dependentRepository.findByUserId(user.getId());
+
 		userDetail.setUser(user);
-		if(dependents.size() > 0) {
+		if (dependents.isEmpty()) {
 			userDetail.setDependents(dependents);
 		}
-		
+
 		return userDetail;
 	}
 
 	public User register(User user) {
-		user.setId("R-"+Math.round(Math.random()*1000));
+		user.setId("R-" + Math.round(Math.random() * 1000));
 		return userRepository.save(user);
 	}
-	
+
 	public User checkUserForClaimSubmit(String memberId, String userId) {
 		return userDao.checkUserForClaimSubmit(memberId, userId);
 	}
-	
+
 	public Dependent checkDependentForClaimSubmit(String memberId, String userId) {
 		return dependentDao.getDependentDetail(memberId, userId);
 	}

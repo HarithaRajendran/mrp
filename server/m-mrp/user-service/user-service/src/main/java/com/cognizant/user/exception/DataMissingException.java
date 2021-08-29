@@ -1,6 +1,6 @@
 package com.cognizant.user.exception;
 
-public class DataMissingException extends RuntimeException{
+public class DataMissingException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

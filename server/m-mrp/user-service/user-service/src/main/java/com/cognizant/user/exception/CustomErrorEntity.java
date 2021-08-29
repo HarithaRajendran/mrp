@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CustomErrorEntity {
-	
+
 	public CustomErrorEntity(Date timeStamp, String message, Integer statusCode, String status, String details) {
 		super();
 		this.timeStamp = timeStamp;
@@ -17,11 +17,11 @@ public class CustomErrorEntity {
 		this.status = status;
 		this.details = details;
 	}
-	
+
 	private Date timeStamp;
 	private String message;
 	private Integer statusCode;
 	private String status;
 	private String details;
-	
+
 }

@@ -7,14 +7,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Document(collection="dependent")
+@Document(collection = "dependent")
 public class Dependent {
-	
+
 	private String id;
-	
+
 	private String name;
-	
+
 	private String dateOfBirth;
-	
+
 	private String userId;
 }

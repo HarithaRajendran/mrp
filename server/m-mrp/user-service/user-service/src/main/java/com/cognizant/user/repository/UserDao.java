@@ -10,19 +10,16 @@ import com.cognizant.user.entity.User;
 
 @Repository
 public class UserDao {
-	
+
 	@Autowired
 	private MongoOperations mongoOperation;
 
 	public User validateUserDetail(String username, String password) {
-		return mongoOperation.findOne(
-				new Query(Criteria.where("email").is(username).and("password").is(password)),
+		return mongoOperation.findOne(new Query(Criteria.where("email").is(username).and("password").is(password)),
 				User.class);
 	}
-	
+
 	public User checkUserForClaimSubmit(String memberId, String userId) {
-		return mongoOperation.findOne(
-				new Query(Criteria.where("id").is(memberId).and("id").is(userId)),
-				User.class);
+		return mongoOperation.findOne(new Query(Criteria.where("id").is(memberId).and("id").is(userId)), User.class);
 	}
 }

@@ -8,24 +8,24 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Document(collection="user")
+@Document(collection = "user")
 public class User {
-	
+
 	@Id
 	private String id;
-	
+
 	private String name;
-	
+
 	private String dateOfBirth;
-	
+
 	private Address address;
-	
+
 	private String panCardNumber;
-	
+
 	private Long contactDetail;
-	
+
 	private String email;
-	
+
 	private String password;
-	
+
 }
